@@ -9,7 +9,7 @@
 
 <br>
 
-# Introdução
+# INTRODUÇÃO
 ### Este projeto apresenta a solução de banco de dados para uma empresa de transporte marítimo, com o objetivo de automatizar a alocação de cargas em navios considerando capacidade e destino. O sistema foi projetado para garantir a integridade do transporte e o controle de prazos e multas. A solução abrange desde a modelagem conceitual até a implementação de objetos complexos como views e consultas analíticas para ajudar a decisão do supervisor.
 
 # MODELAGEM CONCEITUAL
@@ -26,7 +26,7 @@
 * Regras de Negócio: Definimos que a alocação depende da disponibilidade de peso no navio e da compatibilidade do itinerário com a data limite de desembarque da carga
 
 # MODELAGEM LÓGICA E IMPLEMENTAÇÃO
-### A implementação física foi realizada no SQL Server, utilizando tipos de dados como (decimal para pesos e date para prazos) e restrições de integridade. O código abaixo demonstra a criação das tabelas, chaves e inserts:
+### A implementação física foi realizada no SQL Server, utilizando tipos de dados como (decimal para pesos e date para prazos) e restrições de integridade. O código abaixo demonstra a criação das tabelas, chaves, insert e select:
 
 ```sql
 -- Criação do banco de dados
