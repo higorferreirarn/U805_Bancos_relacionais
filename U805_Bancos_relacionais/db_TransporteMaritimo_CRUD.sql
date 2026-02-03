@@ -301,3 +301,55 @@ HAVING
 
 -- Select 05:
 SELECT * FROM vw_Capacidade_Navio WHERE CapacidadeMaxKg > 100000 AND Navio LIKE '%Nordeste%'
+
+-- Select 06:
+
+WITH PrimeiraParada AS (
+    SELECT
+        pr.IdRota,
+        pr.IdPorto,
+        pr.DataPrevistaChegada,
+        pr.Ordem,
+        ROW_NUMBER() OVER (PARTITION BY pr.IdRota, pr.IdPorto ORDER BY pr.DataPrevistaChegada ASC) AS rn
+    FROM ParadaRota pr
+)
+SELECT
+    c.IdCarga,
+    c.PesoKg,
+    c.DataMaxDesembarque,
+    c.IdPortoDestino,
+    p.Nome AS PortoDestino,
+    n.IdNavio,
+    n.Nome AS Navio,
+    n.CapacidadeMaxKg,
+    ISNULL(SUM(c2.PesoKg), 0) AS PesoOcupado,
+    (n.CapacidadeMaxKg - ISNULL(SUM(c2.PesoKg), 0)) AS Capacidade_Disponivel,
+    pp.DataPrevistaChegada AS Data_Chegada_Navio
+FROM
+    Carga c INNER JOIN PrimeiraParada pp ON (pp.IdPorto = c.IdPortoDestino AND pp.rn = 1 AND pp.DataPrevistaChegada <= c.DataMaxDesembarque)
+    INNER JOIN Rota r ON (r.IdRota = pp.IdRota)
+    INNER JOIN Navio n ON (n.IdNavio = r.IdNavio)
+    INNER JOIN Porto p ON (p.IdPorto = c.IdPortoDestino)
+    LEFT JOIN Embarque e ON (e.IdNavio = n.IdNavio)
+    LEFT JOIN Carga c2 ON (c2.IdCarga = e.IdCarga)
+
+WHERE
+    c.Status = 'não embarcada'
+
+GROUP BY
+    c.IdCarga, 
+    c.PesoKg, 
+    c.DataMaxDesembarque, 
+    c.IdPortoDestino, 
+    p.Nome,
+    n.IdNavio, 
+    n.Nome, 
+    n.CapacidadeMaxKg, 
+    pp.DataPrevistaChegada
+
+HAVING
+    (n.CapacidadeMaxKg - ISNULL(SUM(c2.PesoKg), 0)) >= c.PesoKg
+
+ORDER BY
+    c.IdCarga, pp.DataPrevistaChegada
+
