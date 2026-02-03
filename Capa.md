@@ -28,6 +28,7 @@
 # MODELAGEM LÓGICA E IMPLEMENTAÇÃO
 ### A implementação física foi realizada no SQL Server, utilizando tipos de dados como (decimal para pesos e date para prazos) e restrições de integridade. O código abaixo demonstra a criação das tabelas, chaves e inserts:
 
+```sql
 -- Criação do banco de dados
 CREATE DATABASE db_TransporteMaritimo;
 GO
@@ -336,5 +337,5 @@ HAVING
 
 -- Select 05:
 SELECT * FROM vw_Capacidade_Navio WHERE CapacidadeMaxKg > 100000 AND Navio LIKE '%Nordeste%'
-
+```
 
