@@ -13,7 +13,7 @@
 ### Este projeto apresenta a solução de banco de dados para uma empresa de transporte marítimo, com o objetivo de automatizar a alocação de cargas em navios considerando capacidade e destino. O sistema foi projetado para garantir a integridade do transporte e o controle de prazos e multas. A solução abrange desde a modelagem conceitual até a implementação de objetos complexos como views e consultas analíticas para ajudar a decisão do supervisor.
 
 # MODELAGEM CONCEITUAL
-![Modelagem do Sistema](![alt text](Transporte-Maritimo.jpeg))
+![Modelagem do Sistema](Transporte-Maritimo.jpeg)
 
 ## Nesta etapa, o foco foi mapear as regras de negócio e como os diferentes elementos do cenário logístico se conectam. Em vez de focar em comandos técnicos, definimos a hierarquia das informações:
 
